@@ -3,7 +3,11 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
-import { FiArrowRight, FiX, FiPhone } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiX,
+  FiPhone,
+} from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -24,12 +28,14 @@ const overlayVariants = {
   hidden: {
     opacity: 0,
   },
+
   visible: {
     opacity: 1,
     transition: {
       duration: 0.25,
     },
   },
+
   exit: {
     opacity: 0,
     transition: {
@@ -44,6 +50,7 @@ const modalVariants = {
     scale: 0.96,
     y: 20,
   },
+
   visible: {
     opacity: 1,
     scale: 1,
@@ -53,6 +60,7 @@ const modalVariants = {
       ease: [0.22, 1, 0.36, 1],
     },
   },
+
   exit: {
     opacity: 0,
     scale: 0.97,
@@ -66,14 +74,15 @@ const modalVariants = {
 const leftVariants = {
   hidden: {
     opacity: 0,
-    x: -40,
+    x: -30,
   },
+
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
-      delay: 0.1,
+      duration: 0.45,
+      delay: 0.05,
       ease: "easeOut",
     },
   },
@@ -82,14 +91,15 @@ const leftVariants = {
 const rightVariants = {
   hidden: {
     opacity: 0,
-    x: 40,
+    x: 30,
   },
+
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.5,
-      delay: 0.15,
+      duration: 0.45,
+      delay: 0.1,
       ease: "easeOut",
     },
   },
@@ -102,14 +112,23 @@ const rightVariants = {
 const selectStyles = {
   control: (base, state) => ({
     ...base,
+
     minHeight: "48px",
+    height: "48px",
+
     borderRadius: "8px",
     borderWidth: "1px",
-    borderColor: state.isFocused ? "#f97316" : "#e5e7eb",
+
+    borderColor: state.isFocused
+      ? "#f97316"
+      : "#e5e7eb",
+
     boxShadow: state.isFocused
       ? "0 0 0 1px #f97316"
       : "none",
+
     transition: "all 0.2s ease",
+
     "&:hover": {
       borderColor: "#f97316",
     },
@@ -117,7 +136,7 @@ const selectStyles = {
 
   valueContainer: (base) => ({
     ...base,
-    padding: "2px 16px",
+    padding: "2px 14px",
   }),
 
   placeholder: (base) => ({
@@ -137,6 +156,11 @@ const selectStyles = {
     fontSize: "14px",
   }),
 
+  indicatorsContainer: (base) => ({
+    ...base,
+    height: "46px",
+  }),
+
   menu: (base) => ({
     ...base,
     zIndex: 10000,
@@ -146,25 +170,30 @@ const selectStyles = {
 
   option: (base, state) => ({
     ...base,
-    padding: "10px 16px",
+
+    padding: "9px 14px",
     fontSize: "14px",
     cursor: "pointer",
+
     backgroundColor: state.isSelected
       ? "#f97316"
       : state.isFocused
       ? "#fff7ed"
       : "#ffffff",
-    color: state.isSelected ? "#ffffff" : "#111827",
+
+    color: state.isSelected
+      ? "#ffffff"
+      : "#111827",
   }),
 };
 
 /* =========================================================
-   INPUT CLASS
+   COMMON INPUT CLASS
 ========================================================= */
 
 const inputClassName = `
-  w-full
   h-12
+  w-full
   rounded-lg
   border
   border-gray-200
@@ -207,6 +236,7 @@ export default function ReachUsPopup({ open, onClose }) {
       industry: "",
       country: "",
       time: "",
+      message: "",
     },
   });
 
@@ -284,7 +314,10 @@ export default function ReachUsPopup({ open, onClose }) {
         );
       }
     } catch (error) {
-      console.error("Form submission error:", error);
+      console.error(
+        "Form submission error:",
+        error
+      );
 
       toast.error(
         "Submission failed. Try again."
@@ -313,7 +346,7 @@ export default function ReachUsPopup({ open, onClose }) {
               overflow-y-auto
               bg-black/60
               px-4
-              py-6
+              py-5
               backdrop-blur-[2px]
             "
             variants={overlayVariants}
@@ -337,9 +370,9 @@ export default function ReachUsPopup({ open, onClose }) {
               className="
                 relative
                 w-full
-                max-w-5xl
+                max-w-3xl
                 overflow-hidden
-                rounded-2xl
+                rounded-xl
                 bg-white
                 shadow-[0_25px_80px_rgba(0,0,0,0.35)]
               "
@@ -354,17 +387,17 @@ export default function ReachUsPopup({ open, onClose }) {
                 aria-label="Close popup"
                 className="
                   absolute
-                  right-4
-                  top-4
+                  right-3
+                  top-3
                   z-50
                   flex
-                  h-10
-                  w-10
+                  h-8
+                  w-8
                   items-center
                   justify-center
                   rounded-full
                   bg-white
-                  shadow-lg
+                  shadow-md
                   transition-all
                   duration-200
                   hover:scale-105
@@ -374,7 +407,7 @@ export default function ReachUsPopup({ open, onClose }) {
                   focus:ring-orange-500
                 "
               >
-                <FiX className="text-xl text-orange-500" />
+                <FiX className="text-lg text-orange-500" />
               </button>
 
               {/* =================================================
@@ -392,20 +425,19 @@ export default function ReachUsPopup({ open, onClose }) {
                   className="
                     relative
                     flex
-                    min-h-[520px]
+                    min-h-[420px]
                     flex-col
                     justify-center
                     overflow-hidden
                     bg-orange-500
-                    px-7
-                    py-12
+                    px-6
+                    py-8
                     text-white
-                    sm:px-10
-                    md:px-10
-                    lg:px-12
+                    sm:px-8
                   "
                 >
-                  {/* SUBTLE BACKGROUND */}
+                  {/* DECORATIVE CIRCLE */}
+
                   <div
                     aria-hidden="true"
                     className="
@@ -413,8 +445,8 @@ export default function ReachUsPopup({ open, onClose }) {
                       absolute
                       -right-24
                       -top-24
-                      h-64
-                      w-64
+                      h-56
+                      w-56
                       rounded-full
                       bg-white/10
                     "
@@ -425,10 +457,10 @@ export default function ReachUsPopup({ open, onClose }) {
                     className="
                       pointer-events-none
                       absolute
-                      -bottom-32
-                      -left-20
-                      h-72
-                      w-72
+                      -bottom-28
+                      -left-16
+                      h-64
+                      w-64
                       rounded-full
                       border
                       border-white/10
@@ -436,31 +468,34 @@ export default function ReachUsPopup({ open, onClose }) {
                   />
 
                   {/* CONTENT */}
+
                   <div className="relative z-10">
 
                     {/* LOGO */}
+
                     <SafeImage
                       src="/homebg/logof.png"
                       alt="Everence"
                       className="
-                        mb-8
+                        mb-6
                         h-auto
                         w-auto
-                        max-w-[190px]
+                        max-w-[150px]
                         object-contain
                         object-left
                       "
                     />
 
                     {/* HEADING */}
+
                     <h2
                       className="
-                        max-w-md
-                        text-3xl
+                        max-w-sm
+                        text-2xl
                         font-bold
                         leading-[1.15]
                         tracking-tight
-                        sm:text-4xl
+                        sm:text-3xl
                       "
                     >
                       The Right Conversation
@@ -471,14 +506,14 @@ export default function ReachUsPopup({ open, onClose }) {
                     </h2>
 
                     {/* DESCRIPTION */}
+
                     <p
                       className="
-                        mt-5
-                        max-w-md
+                        mt-4
+                        max-w-sm
                         text-sm
-                        leading-7
+                        leading-6
                         text-white/90
-                        sm:text-base
                       "
                     >
                       Get expert guidance before a
@@ -495,30 +530,31 @@ export default function ReachUsPopup({ open, onClose }) {
                       aria-label="Call Emergency Support at +91 86554 12100"
                       className="
                         group
-                        mt-8
+                        mt-6
                         inline-flex
                         w-fit
                         items-center
                         gap-3
-                        rounded-xl
+                        rounded-lg
                         bg-white
-                        px-5
-                        py-3.5
+                        px-4
+                        py-3
                         text-orange-500
-                        shadow-lg
+                        shadow-md
                         transition-all
                         duration-300
                         hover:-translate-y-1
                         hover:bg-orange-50
-                        hover:shadow-xl
+                        hover:shadow-lg
                       "
                     >
                       {/* PHONE ICON */}
+
                       <span
                         className="
                           flex
-                          h-10
-                          w-10
+                          h-9
+                          w-9
                           shrink-0
                           items-center
                           justify-center
@@ -530,15 +566,17 @@ export default function ReachUsPopup({ open, onClose }) {
                           group-hover:scale-105
                         "
                       >
-                        <FiPhone className="text-lg" />
+                        <FiPhone className="text-base" />
                       </span>
 
                       {/* PHONE DETAILS */}
+
                       <span className="text-left">
+
                         <span
                           className="
                             block
-                            text-[10px]
+                            text-[9px]
                             font-bold
                             uppercase
                             tracking-[0.15em]
@@ -552,26 +590,27 @@ export default function ReachUsPopup({ open, onClose }) {
                           className="
                             mt-0.5
                             block
-                            text-base
+                            text-sm
                             font-bold
                             text-gray-900
-                            sm:text-lg
                           "
                         >
                           +91 86554 12100
                         </span>
+
                       </span>
 
                       <FiArrowRight
                         className="
                           ml-1
-                          text-lg
+                          text-base
                           transition-transform
                           duration-300
                           group-hover:translate-x-1
                         "
                       />
                     </a>
+
                   </div>
                 </motion.div>
 
@@ -586,189 +625,280 @@ export default function ReachUsPopup({ open, onClose }) {
                     flex-col
                     justify-center
                     bg-white
-                    px-6
-                    py-8
-                    sm:px-8
-                    md:px-10
-                    lg:px-12
+                    px-5
+                    py-6
+                    sm:px-7
+                    md:px-8
                   "
                 >
+
                   {/* FORM HEADER */}
 
-                  <div className="mb-6 pr-8">
-                    <h3 className="text-2xl font-bold text-gray-900">
+                  <div className="mb-4 pr-8">
+
+                    <h3
+                      className="
+                        text-xl
+                        font-bold
+                        leading-tight
+                        text-gray-900
+                      "
+                    >
                       Reach Us
                     </h3>
 
-                    <p className="mt-2 text-sm leading-6 text-gray-500">
+                    <p
+                      className="
+                        mt-1
+                        text-xs
+                        leading-5
+                        text-gray-500
+                      "
+                    >
                       Tell us how we can help protect
                       your business.
                     </p>
+
                   </div>
 
-                  {/* FORM */}
+                  {/* =================================================
+                      FORM
+                  ================================================= */}
 
                   <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-4"
+                    className="space-y-3"
                   >
-                    {/* NAME */}
 
-                    <input
-                      type="text"
-                      autoComplete="name"
-                      placeholder="Full Name*"
-                      className={inputClassName}
-                      {...register("name", {
-                        required:
-                          "Full name is required",
-                      })}
-                    />
+                    {/* =================================================
+                        ROW 1
+                    ================================================= */}
 
-                    {/* EMAIL */}
-
-                    <input
-                      type="email"
-                      autoComplete="email"
-                      placeholder="Email*"
-                      className={inputClassName}
-                      {...register("email", {
-                        required:
-                          "Email is required",
-                        pattern: {
-                          value:
-                            /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                          message:
-                            "Enter a valid email",
-                        },
-                      })}
-                    />
-
-                    {/* PHONE */}
-
-                    <input
-                      type="tel"
-                      autoComplete="tel"
-                      placeholder="Phone*"
-                      className={inputClassName}
-                      {...register("phone", {
-                        required:
-                          "Phone number is required",
-                      })}
-                    />
-
-                    {/* INDUSTRY */}
-
-                    <Controller
-                      name="industry"
-                      control={control}
-                      rules={{
-                        required:
-                          "Industry is required",
-                      }}
-                      render={({ field }) => (
-                        <CreatableSelect
-                          value={
-                            field.value
-                              ? {
-                                  label:
-                                    field.value,
-                                  value:
-                                    field.value,
-                                }
-                              : null
-                          }
-                          options={industryOptions}
-                          styles={selectStyles}
-                          placeholder="Industry*"
-                          isClearable
-                          onChange={(value) =>
-                            field.onChange(
-                              value?.label || ""
-                            )
-                          }
-                        />
-                      )}
-                    />
-
-                    {/* COUNTRY */}
-
-                    <Controller
-                      name="country"
-                      control={control}
-                      rules={{
-                        required:
-                          "Country is required",
-                      }}
-                      render={({ field }) => (
-                        <Select
-                          value={
-                            countryOptions.find(
-                              (option) =>
-                                option.label ===
-                                field.value
-                            ) || null
-                          }
-                          options={countryOptions}
-                          styles={selectStyles}
-                          placeholder="Country*"
-                          isClearable
-                          onChange={(value) =>
-                            field.onChange(
-                              value?.label || ""
-                            )
-                          }
-                        />
-                      )}
-                    />
-
-                    {/* BEST TIME */}
-
-                    <select
+                    <div
                       className="
-                        h-12
+                        grid
+                        grid-cols-1
+                        gap-3
+                        sm:grid-cols-2
+                      "
+                    >
+
+                      {/* NAME */}
+
+                      <input
+                        type="text"
+                        autoComplete="name"
+                        placeholder="Full Name*"
+                        className={inputClassName}
+                        {...register("name", {
+                          required:
+                            "Full name is required",
+                        })}
+                      />
+
+                      {/* EMAIL */}
+
+                      <input
+                        type="email"
+                        autoComplete="email"
+                        placeholder="Email*"
+                        className={inputClassName}
+                        {...register("email", {
+                          required:
+                            "Email is required",
+
+                          pattern: {
+                            value:
+                              /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+
+                            message:
+                              "Enter a valid email",
+                          },
+                        })}
+                      />
+
+                    </div>
+
+                    {/* =================================================
+                        ROW 2
+                    ================================================= */}
+
+                    <div
+                      className="
+                        grid
+                        grid-cols-1
+                        gap-3
+                        sm:grid-cols-2
+                      "
+                    >
+
+                      {/* PHONE */}
+
+                      <input
+                        type="tel"
+                        autoComplete="tel"
+                        placeholder="Phone*"
+                        className={inputClassName}
+                        {...register("phone", {
+                          required:
+                            "Phone number is required",
+                        })}
+                      />
+
+                      {/* INDUSTRY */}
+
+                      <Controller
+                        name="industry"
+                        control={control}
+                        rules={{
+                          required:
+                            "Industry is required",
+                        }}
+                        render={({ field }) => (
+                          <CreatableSelect
+                            value={
+                              field.value
+                                ? {
+                                    label:
+                                      field.value,
+                                    value:
+                                      field.value,
+                                  }
+                                : null
+                            }
+                            options={
+                              industryOptions
+                            }
+                            styles={
+                              selectStyles
+                            }
+                            placeholder="Industry*"
+                            isClearable
+                            onChange={(value) =>
+                              field.onChange(
+                                value?.label ||
+                                  ""
+                              )
+                            }
+                          />
+                        )}
+                      />
+
+                    </div>
+
+                    {/* =================================================
+                        ROW 3
+                    ================================================= */}
+
+                    <div
+                      className="
+                        grid
+                        grid-cols-1
+                        gap-3
+                        sm:grid-cols-2
+                      "
+                    >
+
+                      {/* COUNTRY */}
+
+                      <Controller
+                        name="country"
+                        control={control}
+                        rules={{
+                          required:
+                            "Country is required",
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            value={
+                              countryOptions.find(
+                                (option) =>
+                                  option.label ===
+                                  field.value
+                              ) || null
+                            }
+                            options={
+                              countryOptions
+                            }
+                            styles={
+                              selectStyles
+                            }
+                            placeholder="Country*"
+                            isClearable
+                            onChange={(value) =>
+                              field.onChange(
+                                value?.label ||
+                                  ""
+                              )
+                            }
+                          />
+                        )}
+                      />
+
+                      {/* BEST TIME */}
+
+                      <select
+                        className={inputClassName}
+                        {...register("time")}
+                      >
+                        <option value="">
+                          Best time to contact?
+                        </option>
+
+                        <option value="Morning">
+                          Morning
+                        </option>
+
+                        <option value="Afternoon">
+                          Afternoon
+                        </option>
+
+                        <option value="Evening">
+                          Evening
+                        </option>
+                      </select>
+
+                    </div>
+
+                    {/* =================================================
+                        MESSAGE
+                    ================================================= */}
+
+                    <textarea
+                      rows={3}
+                      placeholder="Write Message"
+                      className="
                         w-full
+                        resize-none
                         rounded-lg
                         border
                         border-gray-200
                         bg-white
                         px-4
+                        py-3
                         text-sm
-                        text-gray-700
+                        text-gray-900
                         outline-none
                         transition-all
                         duration-200
+                        placeholder:text-gray-400
                         focus:border-orange-500
                         focus:ring-1
                         focus:ring-orange-500
                       "
-                      {...register("time")}
-                    >
-                      <option value="">
-                        Best time to contact?
-                      </option>
+                      {...register("message")}
+                    />
 
-                      <option value="Morning">
-                        Morning
-                      </option>
-
-                      <option value="Afternoon">
-                        Afternoon
-                      </option>
-
-                      <option value="Evening">
-                        Evening
-                      </option>
-                    </select>
-
-                    {/* SUBMIT */}
+                    {/* =================================================
+                        SUBMIT
+                    ================================================= */}
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
                       className="
                         flex
-                        h-12
+                        h-11
                         w-full
                         items-center
                         justify-center
@@ -794,30 +924,38 @@ export default function ReachUsPopup({ open, onClose }) {
                       ) : (
                         <>
                           SUBMIT
-                          <FiArrowRight className="ml-2 text-lg" />
+                          <FiArrowRight
+                            className="
+                              ml-2
+                              text-lg
+                            "
+                          />
                         </>
                       )}
                     </button>
+
                   </form>
+
                 </motion.div>
+
               </div>
             </motion.div>
-
-            {/* =================================================
-                TOAST
-            ================================================= */}
-
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              pauseOnHover
-            />
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* =========================================================
+          TOAST
+      ========================================================= */}
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
     </>
   );
 }

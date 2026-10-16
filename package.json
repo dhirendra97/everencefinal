@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@tabler/icons-react": "^3.31.0",
@@ -15,7 +15,7 @@
     "contentful": "^11.3.4",
     "framer-motion": "^12.0.0",
     "lucide-react": "^0.469.0",
-    "next": "^15.3.3",
+    "next": "^15.5.28",
     "quill": "^2.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -26,13 +26,19 @@
     "react-select": "^5.9.0",
     "react-select-country-list": "^2.2.3",
     "react-toastify": "^11.0.2",
-    "swiper": "^11.1.15",
+    "swiper": "^12.2.0",
     "tailwind-merge": "^2.6.0",
     "three": "^0.171.0"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17"
+    "autoprefixer": "^10.5.3",
+    "eslint": "^9.0.0",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^3.4.19"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "$postcss"
+    }
   }
 }
