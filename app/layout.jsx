@@ -4,7 +4,7 @@ import { campton, inter } from "@/lib/fonts";
 import AutoReachUsPopup from "@/components/AutoReachUsPopup";
 
 export const metadata = {
-  metadataBase: new URL("https://everence.io"),
+  metadataBase: new URL("https://www.everence.io"),
 
   title: {
     default: "Everence | Digital Forensics & Cyber Investigation Services",
@@ -14,13 +14,33 @@ export const metadata = {
   description:
     "Everence provides digital forensics and cyber investigation services in India, helping organizations detect threats, investigate incidents, and protect critical business data.",
 
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
     type: "website",
     siteName: "Everence",
+    title: "Everence | Digital Forensics & Cyber Investigation Services",
+    description:
+      "Digital forensics and cyber investigation services helping organizations investigate incidents and protect critical business data.",
+    url: "https://www.everence.io/",
+    images: [
+      {
+        url: "/images/everence-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Everence Digital Forensics and Cyber Investigation Services",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
+    title: "Everence | Digital Forensics & Cyber Investigation Services",
+    description:
+      "Digital forensics and cyber investigation services in India.",
+    images: ["/images/everence-og.jpg"],
   },
 };
 
@@ -47,7 +67,6 @@ export default function RootLayout({ children }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'G-YS3PWDCQF9');
           `}
         </Script>
