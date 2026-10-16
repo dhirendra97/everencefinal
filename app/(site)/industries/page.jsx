@@ -5,7 +5,7 @@ export const metadata = {
   description:
     " Discover how Everence helps organizations across industries with digital forensics, cyber security, fraud investigations, compliance, incident response, and risk management services.",
   alternates: {
-    canonical: "https://everence.io/industries/",
+    canonical: "https://www.everence.io/industries/",
   },
 };
 

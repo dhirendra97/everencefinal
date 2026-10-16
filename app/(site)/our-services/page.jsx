@@ -37,7 +37,7 @@ export const metadata = {
   keywords,
 
   alternates: {
-    canonical: "https://everence.io/our-services",
+    canonical: "https://www.everence.io/our-services",
   },
 
   openGraph: {
@@ -45,7 +45,7 @@ export const metadata = {
       "Digital Forensic & Cybersecurity Services in India | Everence Technologies",
     description:
       "Explore Everence Technologies' digital forensic, cybersecurity, fraud investigation, compliance, e-discovery, device forensics, malware investigation, consulting and digital forensic training services in India.",
-    url: "https://everence.io/our-services",
+    url: "https://www.everence.io/our-services",
     siteName: "Everence Technologies",
     locale: "en_IN",
     type: "website",

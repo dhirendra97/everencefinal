@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "See highlights from Everence's cybersecurity awareness programmes and cyber hygiene training events.",
   alternates: {
-    canonical: "https://everence.io/events",
+    canonical: "https://www.everence.io/events",
   },
 };
 

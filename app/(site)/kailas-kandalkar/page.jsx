@@ -7,14 +7,14 @@ export const metadata = {
   keywords:
     "Keywords For Kailas Kandalkar,Kailas Kandalkar Everence,Kailas Kandalkar official profile,Kailas Kandalkar fraud investigation expert,Kailas Kandalkar forensic specialist,Kailas Kandalkar corporate risk consultant,Kailas Kandalkar investment risk advisor,Kailas Kandalkar compliance expert,Kailas Kandalkar litigation support advisor,Certified Fraud Examiner Kailas Kandalkar,Kailas Kandalkar due diligence specialist",
   alternates: {
-    canonical: "https://everence.io/kailas-kandalkar",
+    canonical: "https://www.everence.io/kailas-kandalkar",
   },
   openGraph: {
     type: "profile",
     title: "Kailas Kandalkar | Founder & Director | Certified Fraud Examiner | Everence",
     description: "Certified Fraud Examiner and corporate risk consultant at Everence.",
-    url: "https://everence.io/kailas-kandalkar",
-    images: ["https://everence.io/homebg/kailas-kandalkar.jpg"],
+    url: "https://www.everence.io/kailas-kandalkar",
+    images: ["https://www.everence.io/homebg/kailas-kandalkar.jpg"],
   },
 };
 
@@ -23,20 +23,20 @@ const schema = {
   "@graph": [
     {
       "@type": "ProfilePage",
-      "@id": "https://everence.io/kailas-kandalkar#profilepage",
-      url: "https://everence.io/kailas-kandalkar",
+      "@id": "https://www.everence.io/kailas-kandalkar#profilepage",
+      url: "https://www.everence.io/kailas-kandalkar",
       name: "Kailas Kandalkar | Director at Everence",
       description:
         "Kailas Kandalkar is Director at Everence specializing in corporate investigations, regulatory compliance, forensic analysis, and strategic risk advisory.",
-      mainEntity: { "@id": "https://everence.io/kailas-kandalkar#person" },
+      mainEntity: { "@id": "https://www.everence.io/kailas-kandalkar#person" },
     },
     {
       "@type": "Person",
-      "@id": "https://everence.io/kailas-kandalkar#person",
+      "@id": "https://www.everence.io/kailas-kandalkar#person",
       name: "Kailas Kandalkar",
-      url: "https://everence.io/kailas-kandalkar",
+      url: "https://www.everence.io/kailas-kandalkar",
       jobTitle: "Director | Certified Fraud Examiner | Risk & Compliance Advisor",
-      worksFor: { "@id": "https://everence.io/#organization" },
+      worksFor: { "@id": "https://www.everence.io/#organization" },
       email: "info@everence.io",
       telephone: "+91 9920314006",
       address: {
@@ -51,9 +51,9 @@ const schema = {
     },
     {
       "@type": "Organization",
-      "@id": "https://everence.io/#organization",
+      "@id": "https://www.everence.io/#organization",
       name: "Everence",
-      url: "https://everence.io/",
+      url: "https://www.everence.io/",
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+91 9920314006",
@@ -70,7 +70,7 @@ const schema = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://everence.io/kailas-kandalkar#faq",
+      "@id": "https://www.everence.io/kailas-kandalkar#faq",
       mainEntity: [
         {
           "@type": "Question",
@@ -116,11 +116,11 @@ const schema = {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://everence.io/kailas-kandalkar#breadcrumb",
+      "@id": "https://www.everence.io/kailas-kandalkar#breadcrumb",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://everence.io/" },
-        { "@type": "ListItem", position: 2, name: "About Us", item: "https://everence.io/about-us" },
-        { "@type": "ListItem", position: 3, name: "Kailas Kandalkar", item: "https://everence.io/kailas-kandalkar" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.everence.io/" },
+        { "@type": "ListItem", position: 2, name: "About Us", item: "https://www.everence.io/about-us" },
+        { "@type": "ListItem", position: 3, name: "Kailas Kandalkar", item: "https://www.everence.io/kailas-kandalkar" },
       ],
     },
   ],

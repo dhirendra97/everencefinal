@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Learn about Everence, a trusted digital forensics and cybersecurity company with 10 years of experience in fraud investigations, compliance, risk intelligence, and digital trust.",
   alternates: {
-    canonical: "https://everence.io/about-us",
+    canonical: "https://www.everence.io/about-us",
   },
 };
 

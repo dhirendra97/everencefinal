@@ -6,7 +6,7 @@ const WORDPRESS_API =
   "https://blog.everence.io/wp-json/wp/v2";
 
 const SITE_URL =
-  "https://everence.io";
+  "https://www.everence.io";
 
 export const revalidate = 3600;
 

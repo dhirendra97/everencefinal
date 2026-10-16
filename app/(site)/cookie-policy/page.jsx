@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Read Everence's Cookie Policy to learn how we use cookies and similar technologies on our website.",
   alternates: {
-    canonical: "https://everence.io/cookie-policy",
+    canonical: "https://www.everence.io/cookie-policy",
   },
 };
 

@@ -7,14 +7,14 @@ export const metadata = {
   keywords:
     "Pramod Prabhakar Everence,Pramod Prabhakar fraud investigation expert,Pramod Prabhakar forensic specialist,Pramod Prabhakar investment risk advisor,Pramod Prabhakar corporate risk consultant,Pramod Prabhakar reputation management advisor,Certified Fraud Examiner Pramod Prabhakar,Pramod Prabhakar litigation support expert",
   alternates: {
-    canonical: "https://everence.io/pramod-prabhakar",
+    canonical: "https://www.everence.io/pramod-prabhakar",
   },
   openGraph: {
     type: "profile",
     title: "Pramod Prabhakar | Founder & Director | Everence",
     description: "Certified Fraud Examiner and corporate risk consultant at Everence.",
-    url: "https://everence.io/pramod-prabhakar",
-    images: ["https://everence.io/homebg/pramod-prabhakar.jpg"],
+    url: "https://www.everence.io/pramod-prabhakar",
+    images: ["https://www.everence.io/homebg/pramod-prabhakar.jpg"],
   },
 };
 
@@ -23,17 +23,17 @@ const schema = {
   "@graph": [
     {
       "@type": "ProfilePage",
-      "@id": "https://everence.io/pramod-prabhakar",
-      url: "https://everence.io/pramod-prabhakar",
+      "@id": "https://www.everence.io/pramod-prabhakar",
+      url: "https://www.everence.io/pramod-prabhakar",
       name: "Pramod Prabhakar | Founder & Director at Everence",
-      mainEntity: { "@id": "https://everence.io/pramod-prabhakar#person" },
+      mainEntity: { "@id": "https://www.everence.io/pramod-prabhakar#person" },
     },
     {
       "@type": "Person",
-      "@id": "https://everence.io/pramod-prabhakar#person",
+      "@id": "https://www.everence.io/pramod-prabhakar#person",
       name: "Pramod Prabhakar",
       jobTitle: "Founder & Director | Certified Fraud Examiner",
-      worksFor: { "@type": "Organization", name: "Everence", url: "https://everence.io/" },
+      worksFor: { "@type": "Organization", name: "Everence", url: "https://www.everence.io/" },
       sameAs: ["https://in.linkedin.com/in/pramodprabhakar1"],
     },
   ],

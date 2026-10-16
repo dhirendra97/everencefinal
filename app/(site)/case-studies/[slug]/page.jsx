@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
     title: `${study.title} | Everence Case Study`,
     description: study.industry ? `${study.title} - ${study.industry.trim()}` : study.title,
     alternates: {
-      canonical: `https://everence.io/case-studies/${slug}`,
+      canonical: `https://www.everence.io/case-studies/${slug}`,
     },
   };
 }

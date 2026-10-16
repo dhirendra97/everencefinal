@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Get in touch with Everence for digital forensics, cybersecurity, fraud investigations, compliance, incident response, and risk management services in India.",
   alternates: {
-    canonical: "https://everence.io/contact",
+    canonical: "https://www.everence.io/contact",
   },
 };
 

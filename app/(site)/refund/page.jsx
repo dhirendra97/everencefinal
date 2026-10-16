@@ -4,7 +4,7 @@ export const metadata = {
   title: "Refund Policy | Everence",
   description: "Read Everence's refund and course rescheduling policy.",
   alternates: {
-    canonical: "https://everence.io/refund",
+    canonical: "https://www.everence.io/refund",
   },
 };
 

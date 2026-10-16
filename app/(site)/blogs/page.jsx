@@ -31,7 +31,7 @@ export const metadata = {
   alternates: {
     canonical:
       seo.canonical ||
-      "https://everence.io/blogs",
+      "https://www.everence.io/blogs",
   },
 
   robots: {
@@ -52,7 +52,7 @@ export const metadata = {
 
     url:
       seo.canonical ||
-      "https://everence.io/blogs",
+      "https://www.everence.io/blogs",
 
     siteName: "Everence Technologies",
 
