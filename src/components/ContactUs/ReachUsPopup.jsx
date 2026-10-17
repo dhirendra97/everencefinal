@@ -3,11 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
-import {
-  FiArrowRight,
-  FiX,
-  FiPhone,
-} from "react-icons/fi";
+import { FiArrowRight, FiX, FiPhone } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -20,215 +16,73 @@ import { SafeImage } from "../../lib/SafeImage";
 
 import "react-toastify/dist/ReactToastify.css";
 
-/* =========================================================
-   ANIMATIONS
-========================================================= */
-
 const overlayVariants = {
-  hidden: {
-    opacity: 0,
-  },
-
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.25,
-    },
-  },
-
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-    },
-  },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.25 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
 const modalVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.96,
-    y: 20,
-  },
-
+  hidden: { opacity: 0, scale: 0.98, y: 12 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: {
-      duration: 0.35,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
   },
-
-  exit: {
-    opacity: 0,
-    scale: 0.97,
-    y: 10,
-    transition: {
-      duration: 0.2,
-    },
-  },
+  exit: { opacity: 0, scale: 0.98, y: 8, transition: { duration: 0.18 } },
 };
 
 const leftVariants = {
-  hidden: {
-    opacity: 0,
-    x: -30,
-  },
-
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.45,
-      delay: 0.05,
-      ease: "easeOut",
-    },
-  },
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut" } },
 };
 
 const rightVariants = {
-  hidden: {
-    opacity: 0,
-    x: 30,
-  },
-
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.45,
-      delay: 0.1,
-      ease: "easeOut",
-    },
-  },
+  hidden: { opacity: 0, x: 20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: "easeOut", delay: 0.04 } },
 };
-
-/* =========================================================
-   REACT SELECT STYLES
-========================================================= */
 
 const selectStyles = {
   control: (base, state) => ({
     ...base,
-
-    minHeight: "48px",
-    height: "48px",
-
+    minHeight: "44px",
+    height: "44px",
     borderRadius: "8px",
     borderWidth: "1px",
-
-    borderColor: state.isFocused
-      ? "#f97316"
-      : "#e5e7eb",
-
-    boxShadow: state.isFocused
-      ? "0 0 0 1px #f97316"
-      : "none",
-
-    transition: "all 0.2s ease",
-
-    "&:hover": {
-      borderColor: "#f97316",
-    },
+    borderColor: state.isFocused ? "#f97316" : "#e5e7eb",
+    boxShadow: state.isFocused ? "0 0 0 1px #f97316" : "none",
+    transition: "border-color 0.2s ease",
+    "&:hover": { borderColor: "#f97316" },
   }),
-
-  valueContainer: (base) => ({
-    ...base,
-    padding: "2px 14px",
-  }),
-
-  placeholder: (base) => ({
-    ...base,
-    color: "#9ca3af",
-    fontSize: "14px",
-  }),
-
-  singleValue: (base) => ({
-    ...base,
-    color: "#111827",
-    fontSize: "14px",
-  }),
-
-  input: (base) => ({
-    ...base,
-    fontSize: "14px",
-  }),
-
-  indicatorsContainer: (base) => ({
-    ...base,
-    height: "46px",
-  }),
-
-  menu: (base) => ({
-    ...base,
-    zIndex: 10000,
-    borderRadius: "8px",
-    overflow: "hidden",
-  }),
-
+  valueContainer: (base) => ({ ...base, padding: "2px 10px" }),
+  placeholder: (base) => ({ ...base, color: "#9ca3af", fontSize: "13px" }),
+  singleValue: (base) => ({ ...base, color: "#111827", fontSize: "13px" }),
+  input: (base) => ({ ...base, fontSize: "13px" }),
+  indicatorsContainer: (base) => ({ ...base, height: "42px" }),
+  menu: (base) => ({ ...base, zIndex: 10001, borderRadius: "8px", overflow: "hidden" }),
+  menuPortal: (base) => ({ ...base, zIndex: 10002 }),
   option: (base, state) => ({
     ...base,
-
-    padding: "9px 14px",
-    fontSize: "14px",
+    padding: "8px 10px",
+    fontSize: "13px",
     cursor: "pointer",
-
-    backgroundColor: state.isSelected
-      ? "#f97316"
-      : state.isFocused
-      ? "#fff7ed"
-      : "#ffffff",
-
-    color: state.isSelected
-      ? "#ffffff"
-      : "#111827",
+    backgroundColor: state.isSelected ? "#f97316" : state.isFocused ? "#fff7ed" : "#fff",
+    color: state.isSelected ? "#fff" : "#111827",
   }),
 };
 
-/* =========================================================
-   COMMON INPUT CLASS
-========================================================= */
+const inputClassName =
+  "h-11 w-full min-w-0 rounded-lg border border-gray-200 bg-white px-3 text-[13px] text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-orange-500 focus:ring-1 focus:ring-orange-500";
 
-const inputClassName = `
-  h-12
-  w-full
-  rounded-lg
-  border
-  border-gray-200
-  bg-white
-  px-4
-  text-sm
-  text-gray-900
-  outline-none
-  transition-all
-  duration-200
-  placeholder:text-gray-400
-  focus:border-orange-500
-  focus:ring-1
-  focus:ring-orange-500
-`;
-
-/* =========================================================
-   COMPONENT
-========================================================= */
+const messageClassName =
+  "w-full resize-none rounded-lg border border-gray-200 bg-white px-3 py-2 text-[13px] text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-orange-500 focus:ring-1 focus:ring-orange-500";
 
 export default function ReachUsPopup({ open, onClose }) {
   const router = useRouter();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /* =========================================================
-     FORM
-  ========================================================= */
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-  } = useForm({
+  const { register, handleSubmit, control, reset } = useForm({
     defaultValues: {
       name: "",
       email: "",
@@ -240,48 +94,18 @@ export default function ReachUsPopup({ open, onClose }) {
     },
   });
 
-  /* =========================================================
-     COUNTRY OPTIONS
-  ========================================================= */
-
-  const countryOptions = useMemo(
-    () => countryList().getData(),
-    []
-  );
-
-  /* =========================================================
-     INDUSTRY OPTIONS
-  ========================================================= */
+  const countryOptions = useMemo(() => countryList().getData(), []);
 
   const industryOptions = useMemo(
     () => [
-      {
-        label: "IT Services",
-        value: "IT Services",
-      },
-      {
-        label: "Finance",
-        value: "Finance",
-      },
-      {
-        label: "Healthcare",
-        value: "Healthcare",
-      },
-      {
-        label: "Manufacturing",
-        value: "Manufacturing",
-      },
-      {
-        label: "Jewellery",
-        value: "Jewellery",
-      },
+      { label: "IT Services", value: "IT Services" },
+      { label: "Finance", value: "Finance" },
+      { label: "Healthcare", value: "Healthcare" },
+      { label: "Manufacturing", value: "Manufacturing" },
+      { label: "Jewellery", value: "Jewellery" },
     ],
     []
   );
-
-  /* =========================================================
-     SUBMIT
-  ========================================================= */
 
   const onSubmit = async (data) => {
     if (isSubmitting) return;
@@ -289,215 +113,82 @@ export default function ReachUsPopup({ open, onClose }) {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post(
-        `${config.API}/submit.php`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(`${config.API}/submit.php`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.data?.success) {
-        toast.success("Form submitted successfully");
-
         reset();
+        onClose?.();
 
-        onClose();
-
+        // Navigate to the thank-you page only after the API confirms success.
         router.push("/successful");
       } else {
-        toast.error(
-          response.data?.message ||
-            "Submission failed"
-        );
+        toast.error(response.data?.message || "Submission failed. Please try again.");
       }
     } catch (error) {
-      console.error(
-        "Form submission error:",
-        error
-      );
-
-      toast.error(
-        "Submission failed. Try again."
-      );
+      console.error("Reach Us form submission error:", error);
+      toast.error("Submission failed. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  /* =========================================================
-     RENDER
-  ========================================================= */
-
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {open && (
           <motion.div
-            className="
-              fixed
-              inset-0
-              z-[9999]
-              flex
-              items-center
-              justify-center
-              overflow-y-auto
-              bg-black/60
-              px-4
-              py-5
-              backdrop-blur-[2px]
-            "
+            className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-black/60 px-3 py-3 backdrop-blur-[2px] sm:px-4 sm:py-5"
             variants={overlayVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             onClick={onClose}
           >
-            {/* =================================================
-                MODAL
-            ================================================= */}
-
             <motion.div
               variants={modalVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              onClick={(event) =>
-                event.stopPropagation()
-              }
-              className="
-                relative
-                w-full
-                max-w-3xl
-                overflow-hidden
-                rounded-xl
-                bg-white
-                shadow-[0_25px_80px_rgba(0,0,0,0.35)]
-              "
+              onClick={(event) => event.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="reach-us-heading"
+              className="relative max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white shadow-[0_25px_80px_rgba(0,0,0,0.35)] md:overflow-hidden"
             >
-              {/* =================================================
-                  CLOSE BUTTON
-              ================================================= */}
-
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close popup"
-                className="
-                  absolute
-                  right-3
-                  top-3
-                  z-50
-                  flex
-                  h-8
-                  w-8
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-white
-                  shadow-md
-                  transition-all
-                  duration-200
-                  hover:scale-105
-                  hover:bg-gray-50
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-orange-500
-                "
+                className="absolute right-2 top-2 z-[10003] flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500 sm:right-3 sm:top-3"
               >
                 <FiX className="text-lg text-orange-500" />
               </button>
 
-              {/* =================================================
-                  TWO COLUMN LAYOUT
-              ================================================= */}
-
               <div className="grid grid-cols-1 md:grid-cols-2">
-
-                {/* =================================================
-                    LEFT COLUMN
-                ================================================= */}
-
+                {/* Desktop promotional panel: hidden on mobile */}
                 <motion.div
                   variants={leftVariants}
-                  className="
-                    relative
-                    flex
-                    min-h-[420px]
-                    flex-col
-                    justify-center
-                    overflow-hidden
-                    bg-orange-500
-                    px-6
-                    py-8
-                    text-white
-                    sm:px-8
-                  "
+                  className="relative hidden min-h-[460px] flex-col justify-center overflow-hidden bg-orange-500 px-7 py-8 text-white md:flex"
                 >
-                  {/* DECORATIVE CIRCLE */}
-
                   <div
                     aria-hidden="true"
-                    className="
-                      pointer-events-none
-                      absolute
-                      -right-24
-                      -top-24
-                      h-56
-                      w-56
-                      rounded-full
-                      bg-white/10
-                    "
+                    className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-white/10"
                   />
-
                   <div
                     aria-hidden="true"
-                    className="
-                      pointer-events-none
-                      absolute
-                      -bottom-28
-                      -left-16
-                      h-64
-                      w-64
-                      rounded-full
-                      border
-                      border-white/10
-                    "
+                    className="pointer-events-none absolute -bottom-28 -left-16 h-64 w-64 rounded-full border border-white/10"
                   />
-
-                  {/* CONTENT */}
 
                   <div className="relative z-10">
-
-                    {/* LOGO */}
-
                     <SafeImage
                       src="/homebg/logof.png"
                       alt="Everence"
-                      className="
-                        mb-6
-                        h-auto
-                        w-auto
-                        max-w-[150px]
-                        object-contain
-                        object-left
-                      "
+                      className="mb-6 h-auto max-w-[150px] object-contain object-left"
                     />
 
-                    {/* HEADING */}
-
-                    <h2
-                      className="
-                        max-w-sm
-                        text-2xl
-                        font-bold
-                        leading-[1.15]
-                        tracking-tight
-                        sm:text-3xl
-                      "
-                    >
+                    <h2 className="max-w-sm text-2xl font-bold leading-tight tracking-tight lg:text-3xl">
                       The Right Conversation
                       <br />
                       Starts Before the Risk
@@ -505,448 +196,170 @@ export default function ReachUsPopup({ open, onClose }) {
                       Becomes Urgent
                     </h2>
 
-                    {/* DESCRIPTION */}
-
-                    <p
-                      className="
-                        mt-4
-                        max-w-sm
-                        text-sm
-                        leading-6
-                        text-white/90
-                      "
-                    >
-                      Get expert guidance before a
-                      digital incident becomes a
-                      serious business risk.
+                    <p className="mt-4 max-w-sm text-sm leading-6 text-white/90">
+                      Get expert guidance before a digital incident becomes a serious business risk.
                     </p>
-
-                    {/* =================================================
-                        EMERGENCY CALL
-                    ================================================= */}
 
                     <a
                       href="tel:+918655412100"
                       aria-label="Call Emergency Support at +91 86554 12100"
-                      className="
-                        group
-                        mt-6
-                        inline-flex
-                        w-fit
-                        items-center
-                        gap-3
-                        rounded-lg
-                        bg-white
-                        px-4
-                        py-3
-                        text-orange-500
-                        shadow-md
-                        transition-all
-                        duration-300
-                        hover:-translate-y-1
-                        hover:bg-orange-50
-                        hover:shadow-lg
-                      "
+                      className="group mt-6 inline-flex w-fit items-center gap-3 rounded-lg bg-white px-4 py-3 text-orange-500 shadow-md transition hover:-translate-y-0.5 hover:bg-orange-50 hover:shadow-lg"
                     >
-                      {/* PHONE ICON */}
-
-                      <span
-                        className="
-                          flex
-                          h-9
-                          w-9
-                          shrink-0
-                          items-center
-                          justify-center
-                          rounded-full
-                          bg-orange-500
-                          text-white
-                          transition-transform
-                          duration-300
-                          group-hover:scale-105
-                        "
-                      >
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-orange-500 text-white transition-transform group-hover:scale-105">
                         <FiPhone className="text-base" />
                       </span>
-
-                      {/* PHONE DETAILS */}
-
                       <span className="text-left">
-
-                        <span
-                          className="
-                            block
-                            text-[9px]
-                            font-bold
-                            uppercase
-                            tracking-[0.15em]
-                            text-orange-500
-                          "
-                        >
+                        <span className="block text-[9px] font-bold uppercase tracking-[0.15em]">
                           Emergency Call
                         </span>
-
-                        <span
-                          className="
-                            mt-0.5
-                            block
-                            text-sm
-                            font-bold
-                            text-gray-900
-                          "
-                        >
+                        <span className="mt-0.5 block text-sm font-bold text-gray-900">
                           +91 86554 12100
                         </span>
-
                       </span>
-
-                      <FiArrowRight
-                        className="
-                          ml-1
-                          text-base
-                          transition-transform
-                          duration-300
-                          group-hover:translate-x-1
-                        "
-                      />
+                      <FiArrowRight className="ml-1 text-base transition-transform group-hover:translate-x-1" />
                     </a>
-
                   </div>
                 </motion.div>
 
-                {/* =================================================
-                    RIGHT COLUMN - FORM
-                ================================================= */}
-
+                {/* Form panel: full width on mobile */}
                 <motion.div
                   variants={rightVariants}
-                  className="
-                    flex
-                    flex-col
-                    justify-center
-                    bg-white
-                    px-5
-                    py-6
-                    sm:px-7
-                    md:px-8
-                  "
+                  className="flex min-w-0 flex-col justify-center bg-white px-3 py-4 sm:px-6 sm:py-6 md:px-8"
                 >
-
-                  {/* FORM HEADER */}
-
-                  <div className="mb-4 pr-8">
-
+                  <div className="mb-3 pr-8 sm:mb-4">
                     <h3
-                      className="
-                        text-xl
-                        font-bold
-                        leading-tight
-                        text-gray-900
-                      "
+                      id="reach-us-heading"
+                      className="text-xl font-bold leading-tight text-gray-900 sm:text-2xl"
                     >
                       Reach Us
                     </h3>
-
-                    <p
-                      className="
-                        mt-1
-                        text-xs
-                        leading-5
-                        text-gray-500
-                      "
-                    >
-                      Tell us how we can help protect
-                      your business.
+                    <p className="mt-1 text-xs leading-4 text-gray-500 sm:leading-5">
+                      Tell us how we can help protect your business.
                     </p>
-
                   </div>
 
-                  {/* =================================================
-                      FORM
-                  ================================================= */}
-
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-3"
-                  >
-
-                    {/* =================================================
-                        ROW 1
-                    ================================================= */}
-
-                    <div
-                      className="
-                        grid
-                        grid-cols-1
-                        gap-3
-                        sm:grid-cols-2
-                      "
-                    >
-
-                      {/* NAME */}
-
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 sm:space-y-3">
+                    {/* Two columns on mobile to minimize vertical scrolling */}
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <input
                         type="text"
                         autoComplete="name"
                         placeholder="Full Name*"
+                        aria-label="Full Name"
                         className={inputClassName}
-                        {...register("name", {
-                          required:
-                            "Full name is required",
-                        })}
+                        {...register("name", { required: "Full name is required" })}
                       />
-
-                      {/* EMAIL */}
-
                       <input
                         type="email"
                         autoComplete="email"
                         placeholder="Email*"
+                        aria-label="Email"
                         className={inputClassName}
                         {...register("email", {
-                          required:
-                            "Email is required",
-
+                          required: "Email is required",
                           pattern: {
-                            value:
-                              /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-
-                            message:
-                              "Enter a valid email",
+                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                            message: "Enter a valid email",
                           },
                         })}
                       />
-
                     </div>
 
-                    {/* =================================================
-                        ROW 2
-                    ================================================= */}
-
-                    <div
-                      className="
-                        grid
-                        grid-cols-1
-                        gap-3
-                        sm:grid-cols-2
-                      "
-                    >
-
-                      {/* PHONE */}
-
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <input
                         type="tel"
                         autoComplete="tel"
                         placeholder="Phone*"
+                        aria-label="Phone"
                         className={inputClassName}
-                        {...register("phone", {
-                          required:
-                            "Phone number is required",
-                        })}
+                        {...register("phone", { required: "Phone number is required" })}
                       />
-
-                      {/* INDUSTRY */}
 
                       <Controller
                         name="industry"
                         control={control}
-                        rules={{
-                          required:
-                            "Industry is required",
-                        }}
+                        rules={{ required: "Industry is required" }}
                         render={({ field }) => (
                           <CreatableSelect
+                            instanceId="reach-us-industry"
                             value={
                               field.value
-                                ? {
-                                    label:
-                                      field.value,
-                                    value:
-                                      field.value,
-                                  }
+                                ? { label: field.value, value: field.value }
                                 : null
                             }
-                            options={
-                              industryOptions
-                            }
-                            styles={
-                              selectStyles
-                            }
+                            options={industryOptions}
+                            styles={selectStyles}
                             placeholder="Industry*"
                             isClearable
-                            onChange={(value) =>
-                              field.onChange(
-                                value?.label ||
-                                  ""
-                              )
-                            }
+                            menuPosition="fixed"
+                            menuPortalTarget={typeof document !== "undefined" ? document.body : undefined}
+                            onChange={(option) => field.onChange(option?.label || "")}
                           />
                         )}
                       />
-
                     </div>
 
-                    {/* =================================================
-                        ROW 3
-                    ================================================= */}
-
-                    <div
-                      className="
-                        grid
-                        grid-cols-1
-                        gap-3
-                        sm:grid-cols-2
-                      "
-                    >
-
-                      {/* COUNTRY */}
-
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <Controller
                         name="country"
                         control={control}
-                        rules={{
-                          required:
-                            "Country is required",
-                        }}
+                        rules={{ required: "Country is required" }}
                         render={({ field }) => (
                           <Select
-                            value={
-                              countryOptions.find(
-                                (option) =>
-                                  option.label ===
-                                  field.value
-                              ) || null
-                            }
-                            options={
-                              countryOptions
-                            }
-                            styles={
-                              selectStyles
-                            }
+                            instanceId="reach-us-country"
+                            value={countryOptions.find((option) => option.label === field.value) || null}
+                            options={countryOptions}
+                            styles={selectStyles}
                             placeholder="Country*"
                             isClearable
-                            onChange={(value) =>
-                              field.onChange(
-                                value?.label ||
-                                  ""
-                              )
-                            }
+                            menuPosition="fixed"
+                            menuPortalTarget={typeof document !== "undefined" ? document.body : undefined}
+                            onChange={(option) => field.onChange(option?.label || "")}
                           />
                         )}
                       />
 
-                      {/* BEST TIME */}
-
                       <select
+                        aria-label="Best time to contact"
                         className={inputClassName}
                         {...register("time")}
                       >
-                        <option value="">
-                          Best time to contact?
-                        </option>
-
-                        <option value="Morning">
-                          Morning
-                        </option>
-
-                        <option value="Afternoon">
-                          Afternoon
-                        </option>
-
-                        <option value="Evening">
-                          Evening
-                        </option>
+                        <option value="">Best time</option>
+                        <option value="Morning">Morning</option>
+                        <option value="Afternoon">Afternoon</option>
+                        <option value="Evening">Evening</option>
                       </select>
-
                     </div>
 
-                    {/* =================================================
-                        MESSAGE
-                    ================================================= */}
-
                     <textarea
-                      rows={3}
-                      placeholder="Write Message"
-                      className="
-                        w-full
-                        resize-none
-                        rounded-lg
-                        border
-                        border-gray-200
-                        bg-white
-                        px-4
-                        py-3
-                        text-sm
-                        text-gray-900
-                        outline-none
-                        transition-all
-                        duration-200
-                        placeholder:text-gray-400
-                        focus:border-orange-500
-                        focus:ring-1
-                        focus:ring-orange-500
-                      "
+                      rows={2}
+                      placeholder="Write Message (optional)"
+                      aria-label="Write Message"
+                      className={messageClassName}
                       {...register("message")}
                     />
-
-                    {/* =================================================
-                        SUBMIT
-                    ================================================= */}
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="
-                        flex
-                        h-11
-                        w-full
-                        items-center
-                        justify-center
-                        rounded-lg
-                        bg-orange-500
-                        px-4
-                        text-sm
-                        font-semibold
-                        text-white
-                        transition-all
-                        duration-300
-                        hover:bg-orange-600
-                        focus:outline-none
-                        focus:ring-2
-                        focus:ring-orange-500
-                        focus:ring-offset-2
-                        disabled:cursor-not-allowed
-                        disabled:opacity-60
-                      "
+                      className="flex h-11 w-full items-center justify-center rounded-lg bg-orange-500 px-4 text-sm font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isSubmitting ? (
                         "Submitting..."
                       ) : (
                         <>
                           SUBMIT
-                          <FiArrowRight
-                            className="
-                              ml-2
-                              text-lg
-                            "
-                          />
+                          <FiArrowRight className="ml-2 text-lg" />
                         </>
                       )}
                     </button>
-
                   </form>
-
                 </motion.div>
-
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* =========================================================
-          TOAST
-      ========================================================= */}
 
       <ToastContainer
         position="top-right"

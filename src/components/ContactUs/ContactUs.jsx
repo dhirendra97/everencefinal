@@ -9,7 +9,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { GoogleMap } from "../../lib/GoogleMap";
-import config from "../../lib/config";
 import { useMapContext } from "../../lib/MapContext";
 import { SafeImage } from "../../lib/SafeImage";
 
@@ -241,33 +240,6 @@ export default function ContactUs({
           web3Response.data
             ?.message ||
             "Form submission failed."
-        );
-      }
-
-      /* -----------------------------------------
-         BACKEND SUBMISSION
-      ----------------------------------------- */
-
-      try {
-        await axios.post(
-          config.apiUrl,
-          formData,
-          {
-            timeout: 15000,
-          }
-        );
-      } catch (
-        backendError
-      ) {
-        /*
-         Web3Forms already succeeded.
-         Log backend failure instead of
-         making the user submit again.
-        */
-
-        console.error(
-          "Backend submission error:",
-          backendError
         );
       }
 
