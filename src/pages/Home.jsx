@@ -1,6 +1,8 @@
+// pages/Home.jsx
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
+import { useSearchParams } from "next/navigation";
 import PopUpTimeOut from "../lib/PopUpTimeOut";
 import Banner from "../components/HomePage/Banner/Banner";
 import AbtCompany from "../components/HomePage/AbtCompany";
@@ -12,53 +14,24 @@ import ReachUsForm from "../components/ContactUs/ReachUsForm";
 import HomeFAQ from "../components/HomePage/HomeFAQ";
 import Certifications from "../components/HomePage/Certificates";
 
-/* ================= PAGE LOAD ANIMATION (SAME AS ABOUT PAGE) ================= */
- 
-const pageVariants = { 
-  hidden: { y: 24 },
-  show: {
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
 function Home() {
-  const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    const fromIntro = sessionStorage.getItem("fromIntro");
-
-    const timer = setTimeout(() => {
-      if (!fromIntro) setShowPopup(true);
-      else sessionStorage.removeItem("fromIntro");
-    }, 400);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const searchParams = useSearchParams();
+  const isFromIntro = searchParams.get("intro") === "true";
 
   return (
     <>
-      {/* PAGE LOAD ANIMATION */}
+      {/* ✅ Popup SIRF tab dikhega jab user Intro se na aaya ho */}
+      {!isFromIntro && <PopUpTimeOut />}
 
-        {showPopup && <PopUpTimeOut />}
-
-        <Banner />
-        <AbtCompany />
-        <SecurityMarquee />
-        <Services />
-         <Certifications />
-        <WhyUs />
-        <RealCaseStudies />
-        {/* <HomeBlogShowcase /> */}
-        <ReachUsForm />
-        <HomeFAQ />
-     
+      <Banner />
+      <AbtCompany />
+      <SecurityMarquee />
+      <Services />
+      <Certifications />
+      <WhyUs />
+      <RealCaseStudies />
+      <ReachUsForm />
+      <HomeFAQ />
     </>
   );
 }

@@ -1,6 +1,7 @@
+// components/ContactUs/ReachUsForm.jsx
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react"; // ✅ Import useEffect
 import { motion } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
 import { FiArrowRight } from "react-icons/fi";
@@ -13,8 +14,6 @@ import countryList from "react-select-country-list";
 import RichText from "@/components/RichText";
 import config from "../../lib/config";
 import "react-toastify/dist/ReactToastify.css";
-
-/* ================= ANIMATIONS ================= */
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -43,14 +42,13 @@ const selectStyles = {
 export default function ReachUsForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mounted, setMounted] = useState(false); // ✅ Add this
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-  } = useForm();
+  useEffect(() => {
+    setMounted(true); // ✅ Ensure client-side only rendering for portal
+  }, []);
 
+  const { register, handleSubmit, control, reset } = useForm();
   const countryOptions = useMemo(() => countryList().getData(), []);
 
   const industryOptions = [
@@ -61,14 +59,10 @@ export default function ReachUsForm() {
     { label: "Jewellery", value: "Jewellery" },
   ];
 
-  /* ================= SUBMIT ================= */
-
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-
     try {
       const res = await axios.post(`${config.API}/submit.php`, data);
-
       if (res.data?.success) {
         toast.success("Form submitted successfully");
         reset();
@@ -94,52 +88,18 @@ export default function ReachUsForm() {
         whileInView="show"
       >
         <div className="grid md:grid-cols-2 rounded-2xl shadow-2xl overflow-hidden">
-
-          {/* LEFT CONTENT */}
-          <motion.div
-            variants={leftVariants}
-            className="bg-orange-500 text-white p-10 flex flex-col justify-center h-full"
-          >
-            <h2 className="text-3xl font-bold mb-4">
-              Find Evidence Before The Risk Finds You
-            </h2>
-
-            {/* ✅ FIXED DESCRIPTION */}
+          <motion.div variants={leftVariants} className="bg-orange-500 text-white p-10 flex flex-col justify-center h-full">
+            <h2 className="text-3xl font-bold mb-4">Find Evidence Before The Risk Finds You</h2>
             <p className="text-white text-lg leading-relaxed max-w-xl">
-              <RichText
-                content={[
-                  {
-                    text: "Cyber incident response services",
-                    link: "/services/digital-compliance",
-                    color: "text-white underline",
-                  },
-                  " decisions are rarely made in isolation; they’re shaped by context, responsibility, and timing. Whether you’re evaluating exposure, responding to a developing situation, or planning for resilience, an informed conversation can make the difference."
-                ]}
-              />
+              <RichText content={[{ text: "Cyber incident response services", link: "/services/digital-compliance", color: "text-white underline" }, " decisions are rarely made in isolation; they’re shaped by context, responsibility, and timing. Whether you’re evaluating exposure, responding to a developing situation, or planning for resilience, an informed conversation can make the difference."]} />
             </p>
           </motion.div>
 
-          {/* RIGHT FORM */}
           <motion.div variants={rightVariants} className="p-10 bg-white">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-
-              <input
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="Full Name*"
-                {...register("name", { required: true })}
-              />
-
-              <input
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="Email*"
-                {...register("email", { required: true })}
-              />
-
-              <input
-                className="w-full border rounded-lg px-4 py-3"
-                placeholder="Phone*"
-                {...register("phone", { required: true })}
-              />
+              <input className="w-full border rounded-lg px-4 py-3" placeholder="Full Name*" {...register("name", { required: true })} />
+              <input className="w-full border rounded-lg px-4 py-3" placeholder="Email*" {...register("email", { required: true })} />
+              <input className="w-full border rounded-lg px-4 py-3" placeholder="Phone*" {...register("phone", { required: true })} />
 
               <Controller
                 name="industry"
@@ -147,6 +107,7 @@ export default function ReachUsForm() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <CreatableSelect
+                    instanceId="reach-us-industry-form" // ✅ Fix hydration
                     styles={selectStyles}
                     options={industryOptions}
                     placeholder="Industry*"
@@ -161,6 +122,7 @@ export default function ReachUsForm() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <Select
+                    instanceId="reach-us-country-form" // ✅ Fix hydration
                     styles={selectStyles}
                     options={countryOptions}
                     placeholder="Country*"
@@ -169,24 +131,16 @@ export default function ReachUsForm() {
                 )}
               />
 
-              <select
-                className="w-full border rounded-lg px-4 py-3"
-                {...register("time")}
-              >
+              <select className="w-full border rounded-lg px-4 py-3" {...register("time")}>
                 <option value="">Best time to contact?</option>
                 <option>Morning</option>
                 <option>Afternoon</option>
                 <option>Evening</option>
               </select>
 
-              <button
-                disabled={isSubmitting}
-                className="w-full bg-orange-500 text-white py-3 rounded-lg"
-              >
-                {isSubmitting ? "Submitting..." : "SUBMIT"}
-                <FiArrowRight className="inline ml-2" />
+              <button disabled={isSubmitting} className="w-full bg-orange-500 text-white py-3 rounded-lg">
+                {isSubmitting ? "Submitting..." : "SUBMIT"} <FiArrowRight className="inline ml-2" />
               </button>
-
             </form>
           </motion.div>
         </div>

@@ -1,3 +1,4 @@
+// app/services/[slug]/page.jsx
 import { notFound } from "next/navigation";
 import servicesData from "@/data/services/services.json";
 import servicesSeo from "@/data/seo-data/services-seo.json";
@@ -18,9 +19,18 @@ export async function generateMetadata({ params }) {
   return {
     title: seo.metaTitle,
     description: seo.metaDescription,
-    keywords: seo.metaKeywords,
+    // ✅ Removed keywords
     alternates: {
       canonical: seo.canonicalTag,
+    },
+    openGraph: {
+      title: seo.metaTitle,
+      description: seo.metaDescription,
+      url: seo.canonicalTag,
+      siteName: "Everence Technologies",
+      locale: "en_IN",
+      type: "website",
+      images: ["/images/everence-og.jpg"], // ✅ Default OG image
     },
   };
 }

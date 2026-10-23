@@ -1,11 +1,11 @@
+// app/kailas-kandalkar/page.jsx
 import KailasKandalkar from "@/pages/KailasKandalkar";
 
 export const metadata = {
   title: "Kailas Kandalkar | Founder & Director | Certified Fraud Examiner | Everence",
   description:
     "Kailas Kandalkar is Founder & Director at Everence and a Certified Fraud Examiner specializing in fraud investigations, forensic advisory, corporate risk consulting, investment risk assessment, and litigation support.",
-  keywords:
-    "Keywords For Kailas Kandalkar,Kailas Kandalkar Everence,Kailas Kandalkar official profile,Kailas Kandalkar fraud investigation expert,Kailas Kandalkar forensic specialist,Kailas Kandalkar corporate risk consultant,Kailas Kandalkar investment risk advisor,Kailas Kandalkar compliance expert,Kailas Kandalkar litigation support advisor,Certified Fraud Examiner Kailas Kandalkar,Kailas Kandalkar due diligence specialist",
+  // ✅ Removed keywords
   alternates: {
     canonical: "https://www.everence.io/kailas-kandalkar",
   },

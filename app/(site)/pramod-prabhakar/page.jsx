@@ -1,11 +1,11 @@
+// app/pramod-prabhakar/page.jsx
 import PramodPrabhakar from "@/pages/PramodPrabhakar";
 
 export const metadata = {
   title: "Pramod Prabhakar | Founder & Director | Certified Fraud Examiner | Everence",
   description:
     "Pramod Prabhakar is Founder & Director at Everence and a Certified Fraud Examiner specializing in fraud investigations, forensic analysis, corporate risk consulting, investment risk advisory, and litigation support.",
-  keywords:
-    "Pramod Prabhakar Everence,Pramod Prabhakar fraud investigation expert,Pramod Prabhakar forensic specialist,Pramod Prabhakar investment risk advisor,Pramod Prabhakar corporate risk consultant,Pramod Prabhakar reputation management advisor,Certified Fraud Examiner Pramod Prabhakar,Pramod Prabhakar litigation support expert",
+  // ✅ Removed keywords
   alternates: {
     canonical: "https://www.everence.io/pramod-prabhakar",
   },

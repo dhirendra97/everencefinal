@@ -1,3 +1,4 @@
+// App.jsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
@@ -34,14 +35,11 @@ const RefundPolicy = lazy(() => import("./components/Terms/Refund"));
 const ContactSuccessful = lazy(() => import("./lib/ContactSuccessful"));
 const NotFoundPage = lazy(() => import("./components/ui/NotFoundPage"));
 
-/* ✅ FIXED IMPORT */
 const ServiceDetail = lazy(() => import("./pages/ServicePage"));
 const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
-/* ================= FALLBACK ================= */
+
 const Loader = () => (
-  <div className="flex items-center justify-center py-20">
-    Loading...
-  </div>
+  <div className="flex items-center justify-center py-20">Loading...</div>
 );
 
 /* ================= ROUTER ================= */
@@ -50,81 +48,39 @@ const router = createBrowserRouter([
     path: "/",
     element: <RouteTransition />,
     children: [
+      // Admin Routes
+      { path: "admin/login", element: <Login /> },
+      { path: "admin/dashboard", element: <AdminRoute><Dashboard /></AdminRoute> },
+      { path: "admin/create-blog", element: <AdminRoute><CreateBlog /></AdminRoute> },
+      { path: "admin/manage-blogs", element: <AdminRoute><ManageBlogs /></AdminRoute> },
+      { path: "admin/edit-blog/:id", element: <AdminRoute><EditBlog /></AdminRoute> },
+
+      // ✅ NEW INTRO ROUTE (Moved from Root to /explore)
       {
-        path: "admin/login",
-        element: <Login />,
-      },
-      {
-        path: "admin/dashboard",
-        element: (
-          <AdminRoute>
-            <Dashboard />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "admin/create-blog",
-        element: (
-          <AdminRoute>
-            <CreateBlog />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "admin/manage-blogs",
-        element: (
-          <AdminRoute>
-            <ManageBlogs />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "admin/edit-blog/:id",
-        element: (
-          <AdminRoute>
-            <EditBlog />
-          </AdminRoute>
-        ),
+        path: "explore",
+        element: <Suspense fallback={<Loader />}><IntroLanding /></Suspense>,
       },
 
-      {
-        index: true,
-        element: (
-          <Suspense fallback={<Loader />}>
-            <IntroLanding />
-          </Suspense>
-        ),
-      },
-
+      // ✅ MAIN WEBSITE ROUTES (Home is now at Root /)
       {
         element: <Layout />,
         children: [
           {
-            path: "home",
+            index: true, // This makes Home the Root URL (/)
             element: <Suspense fallback={<Loader />}><Home /></Suspense>,
           },
           {
             path: "our-services",
             element: <Suspense fallback={<Loader />}><OurService /></Suspense>,
           },
-
-          /* ✅ IMPORTANT ROUTE */
           {
             path: "services/:slug",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <ServiceDetail />
-              </Suspense>
-            ),
+            element: <Suspense fallback={<Loader />}><ServiceDetail /></Suspense>,
           },
-{
-  path: "case-studies/:slug",
-  element: (
-    <Suspense fallback={<Loader />}>
-      <CaseStudyDetail />
-    </Suspense>
-  ),
-},
+          {
+            path: "case-studies/:slug",
+            element: <Suspense fallback={<Loader />}><CaseStudyDetail /></Suspense>,
+          },
           {
             path: "about-us",
             element: <Suspense fallback={<Loader />}><AboutUs /></Suspense>,
@@ -153,23 +109,14 @@ const router = createBrowserRouter([
             path: "contact",
             element: <Suspense fallback={<Loader />}><Contact /></Suspense>,
           },
-
           {
-  path: "kailas-kandalkar",
-  element: (
-    <Suspense fallback={<Loader />}>
-      <KailasKandalkar />
-    </Suspense>
-  ),
-},
-{
-  path: "pramod-prabhakar", // ✅ FIXED SPELLING
-  element: (
-    <Suspense fallback={<Loader />}>
-      <PramodPrabhakar />
-    </Suspense>
-  ),
-},
+            path: "kailas-kandalkar",
+            element: <Suspense fallback={<Loader />}><KailasKandalkar /></Suspense>,
+          },
+          {
+            path: "pramod-prabhakar",
+            element: <Suspense fallback={<Loader />}><PramodPrabhakar /></Suspense>,
+          },
           {
             path: "cookie-policy",
             element: <Suspense fallback={<Loader />}><CookiePolicy /></Suspense>,

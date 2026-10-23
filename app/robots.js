@@ -1,6 +1,6 @@
 export default function robots() {
   return {
     rules: [{ userAgent: "*", allow: "/", disallow: ["/admin"] }],
-    sitemap: "https://everence.io/sitemap.xml",
+    sitemap: "https://www.everence.io/sitemap.xml",
   };
 }

@@ -28,9 +28,9 @@ const OurServices = () => {
               Our Services
             </p>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#757373]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#757373]">
               Protecting What Matters Most
-            </h2>
+            </h1>
 
             <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
               From digital forensics to enterprise-grade cybersecurity and compliance,
