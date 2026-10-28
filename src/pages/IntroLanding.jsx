@@ -55,19 +55,22 @@ export default function IntroLanding() {
     };
   }, []);
 
-    const redirect = () => {
+  const redirect = () => {
     if (redirectLock.current) return;
     redirectLock.current = true;
     
-    // ✅ Set Cookie for 1 day
+    // ✅ Set Cookie so Home page knows Intro is seen
     document.cookie = "hasSeenIntro=true; path=/; max-age=86400; SameSite=Lax";
     
-    // ✅ Full reload to Home with intro=true
-    window.location.href = "/?intro=true";
+    // ✅ Set Session Storage for Popup Logic
+    sessionStorage.setItem("fromIntro", "true");
+    
+    // ✅ Redirect to /home (Clean URL)
+    window.location.href = "/home"; 
   };
 
   return (
-    <>
+    <div className="fixed inset-0 z-[100] bg-white">
       <motion.div
         className="fixed inset-0 bg-cover bg-center will-change-transform"
         style={{ backgroundImage: `url(${introBg.src})`, scale: zoom, x: driftX, y: driftY }}
@@ -75,7 +78,7 @@ export default function IntroLanding() {
       <div className="pointer-events-none fixed inset-0 z-[5] opacity-[0.08]">
         <div className="absolute inset-0 grain-overlay" />
       </div>
-      <div className="fixed inset-0 z-10 flex items-center justify-center px-6" onClick={redirect}>
+      <div className="fixed inset-0 z-10 flex items-center justify-center px-6 cursor-pointer" onClick={redirect}>
         <div className="w-full flex flex-col items-center text-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -110,6 +113,6 @@ export default function IntroLanding() {
           100% { transform: translate(0, 0); }
         }
       `}</style>
-    </>
+    </div>
   );
 }

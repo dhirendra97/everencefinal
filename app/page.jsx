@@ -371,12 +371,12 @@ const schema = {
 };
 
 export default async function Page() {
-  const cookieStore = await cookies();
-  const hasSeenIntro = cookieStore.get("hasSeenIntro");
+  // const cookieStore = await cookies();
+  // const hasSeenIntro = cookieStore.get("hasSeenIntro");
 
-  if (!hasSeenIntro) {
-    redirect("/explore");
-  }
+  // if (!hasSeenIntro) {
+  //   redirect("/explore");
+  // }
 
   return (
     <>

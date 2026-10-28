@@ -29,15 +29,35 @@ const messageClassName = "w-full resize-none rounded-lg border border-gray-200 b
 export default function ReachUsPopup({ open, onClose }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [mounted, setMounted] = useState(false); // ✅ Add mounted state
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true); // ✅ Set mounted on client
+    setMounted(true); 
   }, []);
 
   const { register, handleSubmit, control, reset } = useForm({ defaultValues: { name: "", email: "", phone: "", industry: "", country: "", time: "", message: "" } });
   const countryOptions = useMemo(() => countryList().getData(), []);
-  const industryOptions = useMemo(() => [{ label: "IT Services", value: "IT Services" }, { label: "Finance", value: "Finance" }, { label: "Healthcare", value: "Healthcare" }, { label: "Manufacturing", value: "Manufacturing" }, { label: "Jewellery", value: "Jewellery" }], []);
+  
+  // ✅ UPDATED INDUSTRY OPTIONS
+  const industryOptions = useMemo(
+    () => [
+      { label: "Law Firm", value: "Law Firm" },
+      { label: "Media House", value: "Media House" },
+      { label: "Production", value: "Production" },
+      { label: "Chatter Account", value: "Chatter Account" },
+      { label: "Private Equity Firm", value: "Private Equity Firm" },
+      { label: "Mergers, Acquisitions, and IPO Speciality", value: "Mergers, Acquisitions, and IPO Speciality" },
+      { label: "Real Estate", value: "Real Estate" },
+      { label: "Infrastructure Industry", value: "Infrastructure Industry" },
+      { label: "HR and Risk Compliance Team", value: "HR and Risk Compliance Team" },
+      { label: "IT Services", value: "IT Services" },
+      { label: "Finance", value: "Finance" },
+      { label: "Healthcare", value: "Healthcare" },
+      { label: "Manufacturing", value: "Manufacturing" },
+      { label: "Jewellery", value: "Jewellery" },
+    ],
+    []
+  );
 
   const onSubmit = async (data) => {
     if (isSubmitting) return;
@@ -101,14 +121,14 @@ export default function ReachUsPopup({ open, onClose }) {
                       <input type="tel" autoComplete="tel" placeholder="Phone*" aria-label="Phone" className={inputClassName} {...register("phone", { required: "Phone number is required" })} />
                       <Controller name="industry" control={control} rules={{ required: "Industry is required" }} render={({ field }) => (
                         <CreatableSelect
-                          instanceId="reach-us-industry" // ✅ Fix hydration
+                          instanceId="reach-us-industry"
                           value={field.value ? { label: field.value, value: field.value } : null}
                           options={industryOptions}
                           styles={selectStyles}
                           placeholder="Industry*"
                           isClearable
                           menuPosition="fixed"
-                          menuPortalTarget={mounted ? document.body : undefined} // ✅ Fix hydration
+                          menuPortalTarget={mounted ? document.body : undefined}
                           onChange={(option) => field.onChange(option?.label || "")}
                         />
                       )} />
@@ -117,14 +137,14 @@ export default function ReachUsPopup({ open, onClose }) {
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <Controller name="country" control={control} rules={{ required: "Country is required" }} render={({ field }) => (
                         <Select
-                          instanceId="reach-us-country" // ✅ Fix hydration
+                          instanceId="reach-us-country"
                           value={countryOptions.find((option) => option.label === field.value) || null}
                           options={countryOptions}
                           styles={selectStyles}
                           placeholder="Country*"
                           isClearable
                           menuPosition="fixed"
-                          menuPortalTarget={mounted ? document.body : undefined} // ✅ Fix hydration
+                          menuPortalTarget={mounted ? document.body : undefined}
                           onChange={(option) => field.onChange(option?.label || "")}
                         />
                       )} />
