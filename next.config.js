@@ -6,6 +6,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "everence.io" },
       { protocol: "https", hostname: "www.everence.io" },
+      { protocol: "https", hostname: "blog.everence.io" }, // ✅ Blog images ke liye
       { protocol: "https", hostname: "images.ctfassets.net" },
       { protocol: "https", hostname: "www.googletagmanager.com" },
       { protocol: "https", hostname: "www.google-analytics.com" },
@@ -28,7 +29,8 @@ const nextConfig = {
               "default-src 'self'; " +
               "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " +
               "style-src 'self' 'unsafe-inline'; " +
-              "img-src 'self' data: blob: https://www.everence.io https://www.google-analytics.com https://cdn-icons-png.flaticon.com https://upload.wikimedia.org; " +
+              // ✅ blog.everence.io yahan add kiya gaya hai
+              "img-src 'self' data: blob: https://www.everence.io https://blog.everence.io https://www.google-analytics.com https://cdn-icons-png.flaticon.com https://upload.wikimedia.org; " +
               "font-src 'self' data:; " +
               "connect-src 'self' https://www.google-analytics.com https://everence.io https://api.everence.io; " +
               "frame-ancestors 'self'; " +
