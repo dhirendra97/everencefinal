@@ -57,6 +57,15 @@ export default function ReachUsForm() {
     { label: "Healthcare", value: "Healthcare" },
     { label: "Manufacturing", value: "Manufacturing" },
     { label: "Jewellery", value: "Jewellery" },
+    { label: "Law Firm", value: "Law Firm" },
+    { label: "Media House", value: "Media House" },
+    { label: "Production", value: "Production" },
+    { label: "Chatter Account", value: "Chatter Account" },
+    { label: "Private Equity Firm", value: "Private Equity Firm" },
+    { label: "Mergers, Acquisitions, and IPO Speciality", value: "Mergers, Acquisitions, and IPO Speciality" },
+    { label: "Real Estate", value: "Real Estate" },
+    { label: "Infrastructure Industry", value: "Infrastructure Industry" },
+    { label: "HR and Risk Compliance Team", value: "HR and Risk Compliance Team" },
   ];
 
   const onSubmit = async (data) => {

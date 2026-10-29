@@ -41,6 +41,11 @@ export default function ReachUsPopup({ open, onClose }) {
   // ✅ UPDATED INDUSTRY OPTIONS
   const industryOptions = useMemo(
     () => [
+      { label: "IT Services", value: "IT Services" },
+      { label: "Finance", value: "Finance" },
+      { label: "Healthcare", value: "Healthcare" },
+      { label: "Manufacturing", value: "Manufacturing" },
+      { label: "Jewellery", value: "Jewellery" },
       { label: "Law Firm", value: "Law Firm" },
       { label: "Media House", value: "Media House" },
       { label: "Production", value: "Production" },
@@ -50,11 +55,6 @@ export default function ReachUsPopup({ open, onClose }) {
       { label: "Real Estate", value: "Real Estate" },
       { label: "Infrastructure Industry", value: "Infrastructure Industry" },
       { label: "HR and Risk Compliance Team", value: "HR and Risk Compliance Team" },
-      { label: "IT Services", value: "IT Services" },
-      { label: "Finance", value: "Finance" },
-      { label: "Healthcare", value: "Healthcare" },
-      { label: "Manufacturing", value: "Manufacturing" },
-      { label: "Jewellery", value: "Jewellery" },
     ],
     []
   );

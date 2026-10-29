@@ -1,7 +1,7 @@
 // components/Layout.jsx
-"use client"; // ✅ Add this for Next.js Client Component
+"use client";
 
-import React, { useState } from "react";
+import React from "react";
 import NavBar from "./HomePage/Navbar/NavBar";
 import Footer from "./HomePage/Footer";
 import ScrollToTop from "../lib/ScrollToTop";
@@ -12,18 +12,26 @@ import Emergency from "./ContactUs/Emergency";
 import EmailIcon from "./ContactUs/EmailIcon";
 import CookieBanner from "./CookieBanner";
 
-export default function Layout({ children }) { // ✅ children prop use karein
+export default function Layout({ children }) {
   return (
     <div className="inset-0 w-full overflow-x-hidden md:overflow-visible">
       <MapContextProvider>
         <NavBar />
         <ScrollToTop />
-        {children} {/* ✅ Yahan children render honge */}
+        {children}
         <Footer />
-        <Emergency />
-        <EmailIcon />
-        <WhatsAppIcon />
-        <CallIcon />
+        
+        {/* ✅ Social Icons Wrapper (Mobile Stacked, Desktop Original) */}
+        <div className="
+          fixed z-40 right-4 bottom-28 flex flex-col gap-4 
+          sm:contents
+        ">
+          <Emergency />
+          <EmailIcon />
+          <CallIcon />
+          <WhatsAppIcon />
+        </div>
+
         <CookieBanner />
       </MapContextProvider>
     </div>

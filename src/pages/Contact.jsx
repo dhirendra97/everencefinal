@@ -107,8 +107,8 @@ const selectStyles = {
     backgroundColor: state.isSelected
       ? "#f97316"
       : state.isFocused
-      ? "#fff7ed"
-      : "#ffffff",
+        ? "#fff7ed"
+        : "#ffffff",
 
     color: state.isSelected
       ? "#ffffff"
@@ -149,6 +149,16 @@ const industryOptions = [
     label: "Manufacturing",
     value: "Manufacturing",
   },
+  { label: "Law Firm", value: "Law Firm" },
+  { label: "Media House", value: "Media House" },
+  { label: "Production", value: "Production" },
+  { label: "Chatter Account", value: "Chatter Account" },
+  { label: "Private Equity Firm", value: "Private Equity Firm" },
+  { label: "Mergers, Acquisitions, and IPO Speciality", value: "Mergers, Acquisitions, and IPO Speciality" },
+  { label: "Real Estate", value: "Real Estate" },
+  { label: "Infrastructure Industry", value: "Infrastructure Industry" },
+  { label: "HR and Risk Compliance Team", value: "HR and Risk Compliance Team" },
+
 ];
 
 /* =========================================================
@@ -290,7 +300,7 @@ export default function ContactUs() {
       ) {
         toast.success(
           response.data?.message ||
-            "Form submitted successfully"
+          "Form submitted successfully"
         );
 
         reset();
@@ -313,7 +323,7 @@ export default function ContactUs() {
 
       toast.error(
         response.data?.message ||
-          "Unable to submit the form."
+        "Unable to submit the form."
       );
 
     } catch (error) {
@@ -535,7 +545,7 @@ export default function ContactUs() {
               </span>
 
             </a>
-{/* PHONE */}
+            {/* PHONE */}
 
             <a
               href="tel:+918655412100"
@@ -916,13 +926,12 @@ export default function ContactUs() {
                 text-white
                 transition
                 duration-200
-                ${
-                  isSubmitting
-                    ? `
+                ${isSubmitting
+                  ? `
                       bg-gray-400
                       cursor-not-allowed
                     `
-                    : `
+                  : `
                       bg-orange-500
                       hover:bg-orange-600
                       active:scale-95
