@@ -8,7 +8,7 @@ export const metadata = {
   description: "Everence Technologies provides digital forensic and cybersecurity services in India, including digital forensic assessments, cybersecurity, ethical hacking, digital fraud investigations, digital compliance, due diligence, malware investigation, e-discovery, device forensics, digital forensic incident response, reputation management, social media monitoring, audio and video forensic analysis, cloud consulting and IT consulting.",
   keywords: "Digital Forensic Services Company in India, Digital Forensic Company in India, cyber security service providers in india, Ethical Hacking Services in India, cyber security company in india, Forensic Malware Investigation Services in India, Malware Investigation Services in India, Digital Forensic Assessment services in India, Device Forensic Services in India, Digital Forensic Readiness Assessment Services in India, Proactive & Reactive Digital Fraud Investigations in India, Digital Forensic Incident Response Services in india, Digital Compliance Services in India, Due Diligence Services in India, Email Frauds services in india, eDiscovery Services in India, Messaging platform fraud Investigation in india, Email Fraud Investigation in india, Audio Forensic analysis in India, Video Forensic Analysis in India, Cloud Consulting Services in India, IT consulting services in India, Reputation Management Company in India, Social Media Monitoring Services in India, Digital Forensic Training in India",
   alternates: {
-    canonical: "https://www.everence.io/home", // ✅ URL /home
+    canonical: "https://www.everence.io/home",
   },
   openGraph: {
     title: "Digital Forensic & Cybersecurity Services in India | Everence Technologies",
