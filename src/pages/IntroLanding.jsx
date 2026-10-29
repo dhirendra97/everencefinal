@@ -23,28 +23,39 @@ export default function IntroLanding() {
   const driftX = useMotionValue(0);
   const driftY = useMotionValue(0);
 
+  // Background Animations
   useEffect(() => {
     animate(zoom, MAX_ZOOM, { duration: (SLIDES.length * SLIDE_DURATION) / 1000, ease: "easeOut" });
-  }, []);
-
-  useEffect(() => {
     animate(driftX, [-8, 8], { duration: 24, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
     animate(driftY, [-5, 5], { duration: 30, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
   }, []);
 
+  // Auto Slide Timer
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => {
-        if (prev === SLIDES.length - 1) {
-          setTimeout(() => redirect(), 50);
-          return prev;
+        if (prev < SLIDES.length - 1) {
+          return prev + 1;
         }
-        return prev + 1;
+        return prev; // Last slide par ruk jayega
       });
     }, SLIDE_DURATION);
+
     return () => clearInterval(interval);
   }, []);
 
+  // ✅ Redirect Logic (Jab Last Slide aaye tab redirect ho)
+  useEffect(() => {
+    if (activeIndex === SLIDES.length - 1) {
+      const timer = setTimeout(() => {
+        redirect();
+      }, SLIDE_DURATION); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [activeIndex]);
+
+  // Scroll / Touch Redirect
   useEffect(() => {
     const handleExit = () => redirect();
     window.addEventListener("wheel", handleExit, { passive: true });
@@ -59,14 +70,8 @@ export default function IntroLanding() {
     if (redirectLock.current) return;
     redirectLock.current = true;
     
-    // ✅ Set Cookie so Home page knows Intro is seen
-    document.cookie = "hasSeenIntro=true; path=/; max-age=86400; SameSite=Lax";
-    
-    // ✅ Set Session Storage for Popup Logic
-    sessionStorage.setItem("fromIntro", "true");
-    
-    // ✅ Redirect to /home (Clean URL)
-    window.location.href = "/home"; 
+    // ✅ Hard Redirect (Isse RSC fetch error nahi aayega)
+    window.location.href = "/home";
   };
 
   return (

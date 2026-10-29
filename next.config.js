@@ -2,7 +2,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
-
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "everence.io" },
@@ -10,11 +9,10 @@ const nextConfig = {
       { protocol: "https", hostname: "images.ctfassets.net" },
       { protocol: "https", hostname: "www.googletagmanager.com" },
       { protocol: "https", hostname: "www.google-analytics.com" },
-      { protocol: "https", hostname: "cdn-icons-png.flaticon.com" }, // ✅ Added
-      { protocol: "https", hostname: "upload.wikimedia.org" },       // ✅ Added
+      { protocol: "https", hostname: "cdn-icons-png.flaticon.com" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
     ],
   },
-
   async headers() {
     return [
       {
@@ -30,7 +28,6 @@ const nextConfig = {
               "default-src 'self'; " +
               "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " +
               "style-src 'self' 'unsafe-inline'; " +
-              // ✅ Updated img-src to allow external icons
               "img-src 'self' data: blob: https://www.everence.io https://www.google-analytics.com https://cdn-icons-png.flaticon.com https://upload.wikimedia.org; " +
               "font-src 'self' data:; " +
               "connect-src 'self' https://www.google-analytics.com https://everence.io https://api.everence.io; " +
@@ -41,10 +38,8 @@ const nextConfig = {
       },
     ];
   },
-
   async redirects() {
     return [
-      { source: "/home", destination: "/", permanent: true },
       {
         source: "/:path*",
         has: [{ type: "host", value: "everence.io" }],
