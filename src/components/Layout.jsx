@@ -18,10 +18,15 @@ export default function Layout({ children }) {
       <MapContextProvider>
         <NavBar />
         <ScrollToTop />
-        {children} {/* ✅ Home page yahan render hoga */}
+        {children} 
         <Footer />
         
-        <div className="fixed z-40 right-4 bottom-28 flex flex-col gap-4 sm:contents">
+        {/* ✅ Mobile Icons Container */}
+        <div className="
+          fixed z-[9999] right-4 bottom-28 
+          flex flex-col gap-3 items-center
+          sm:contents
+        ">
           <Emergency />
           <EmailIcon />
           <CallIcon />

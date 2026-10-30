@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SafeImage } from "../../lib/SafeImage";
+import { FiPhoneCall } from "react-icons/fi"; // ✅ Icon import for clean look
 
 const CallIcon = () => {
   const handleClick = () => {
@@ -12,8 +12,8 @@ const CallIcon = () => {
     <div
       onClick={handleClick}
       className="
-        cursor-pointer group
-        sm:fixed sm:top-[45vh] sm:right-6 sm:z-40
+        cursor-pointer group relative flex items-center justify-center
+        sm:fixed sm:top-[45vh] sm:right-4 sm:z-[999]
       "
     >
       <div className="
@@ -26,8 +26,9 @@ const CallIcon = () => {
         Call Us
       </div>
 
-      <div className="rounded-full hover:scale-110 transition-transform bg-white shadow-md p-1">
-        <SafeImage src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call" className="w-[32px] h-[32px] md:w-[30px] md:h-[30px]" />
+      {/* ✅ Solid Blue Circle (No white background) */}
+      <div className="relative w-[40px] h-[40px] sm:w-[44px] sm:h-[44px] bg-blue-600 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300">
+        <FiPhoneCall className="w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] text-white" />
       </div>
     </div>
   );

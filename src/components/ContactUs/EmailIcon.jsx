@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SafeImage } from "../../lib/SafeImage";
+import { FiMail } from "react-icons/fi";
 
 const EmailIcon = () => {
   const handleClick = () => {
@@ -17,8 +17,8 @@ const EmailIcon = () => {
     <div
       onClick={handleClick}
       className="
-        cursor-pointer group
-        sm:fixed sm:top-[35vh] sm:right-6 sm:z-40
+        cursor-pointer group relative flex items-center justify-center
+        sm:fixed sm:top-[35vh] sm:right-4 sm:z-[999]
       "
     >
       <div className="
@@ -31,8 +31,9 @@ const EmailIcon = () => {
         Email Us
       </div>
 
-      <div className="w-[34px] h-[34px] bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300">
-        <SafeImage src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" className="w-[20px] h-[20px]" />
+      {/* ✅ Solid Orange Circle */}
+      <div className="relative w-[40px] h-[40px] sm:w-[44px] sm:h-[44px] bg-orange-500 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300">
+        <FiMail className="w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] text-white" />
       </div>
     </div>
   );

@@ -38,7 +38,12 @@ export default function ReachUsPopup({ open, onClose }) {
   const { register, handleSubmit, control, reset } = useForm({ defaultValues: { name: "", email: "", phone: "", industry: "", country: "", time: "", message: "" } });
   const countryOptions = useMemo(() => countryList().getData(), []);
   
-  // ✅ UPDATED INDUSTRY OPTIONS
+  const timeOptions = [
+    { label: "Morning", value: "Morning" },
+    { label: "Afternoon", value: "Afternoon" },
+    { label: "Evening", value: "Evening" },
+  ];
+
   const industryOptions = useMemo(
     () => [
       { label: "IT Services", value: "IT Services" },
@@ -148,12 +153,21 @@ export default function ReachUsPopup({ open, onClose }) {
                           onChange={(option) => field.onChange(option?.label || "")}
                         />
                       )} />
-                      <select aria-label="Best time to contact" className={inputClassName} {...register("time")}>
-                        <option value="">Best time</option>
-                        <option value="Morning">Morning</option>
-                        <option value="Afternoon">Afternoon</option>
-                        <option value="Evening">Evening</option>
-                      </select>
+                      
+                      {/* ✅ FIXED: Replaced native <select> with React-Select to remove blue highlight */}
+                      <Controller name="time" control={control} render={({ field }) => (
+                        <Select
+                          instanceId="reach-us-time"
+                          value={timeOptions.find((option) => option.value === field.value) || null}
+                          options={timeOptions}
+                          styles={selectStyles}
+                          placeholder="Best time"
+                          isClearable
+                          menuPosition="fixed"
+                          menuPortalTarget={mounted ? document.body : undefined}
+                          onChange={(option) => field.onChange(option?.value || "")}
+                        />
+                      )} />
                     </div>
 
                     <textarea rows={2} placeholder="Write Message (optional)" aria-label="Write Message" className={messageClassName} {...register("message")} />
